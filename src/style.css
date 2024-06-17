@@ -1,0 +1,26 @@
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font faces */
+@font-face {
+  font-family: mi-sans;
+  font-style: normal;
+  font-weight: 150 700;
+  src: url(/fonts/MiSans-VF.ttf);
+}
+
+/* Root component */
+#app {
+  @apply flex flex-col h-screen w-screen;
+
+  &:not([full-screen]) {
+    @apply border-[1.5px] border-blue-500 overflow-hidden rounded-lg;
+  }
+}
+
+/* Global styles */
+body {
+  @apply font-sans;
+}
