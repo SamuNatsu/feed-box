@@ -41,7 +41,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "top.rainiar.feed_box",
+      "identifier": "top.rainiar.feed-box",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
