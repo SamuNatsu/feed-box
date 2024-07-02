@@ -21,6 +21,7 @@
         "close": true,
         "maximize": true,
         "minimize": true,
+        "setPosition": true,
         "setSize": true,
         "startDragging": true,
         "unmaximize": true

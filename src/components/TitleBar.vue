@@ -1,6 +1,11 @@
 <script lang="ts" setup>
-import { LogicalSize, appWindow } from '@tauri-apps/api/window';
-import { onBeforeMount, watch } from 'vue';
+import { UnlistenFn } from '@tauri-apps/api/event';
+import {
+  LogicalPosition,
+  LogicalSize,
+  appWindow
+} from '@tauri-apps/api/window';
+import { onBeforeMount, onBeforeUnmount, watch } from 'vue';
 
 // Stores
 import { useWindowStore } from '@/stores/window';
@@ -12,7 +17,11 @@ import MdiWindowMinimize from '~icons/mdi/window-minimize';
 import MdiWindowRestore from '~icons/mdi/window-restore';
 
 // Injects
-const { height, width, maximised, restore } = useWindowStore();
+const { position, size, maximised, restore } = useWindowStore();
+
+// Non-reactive
+let unlistenOnMoved: UnlistenFn;
+let unlistenOnResized: UnlistenFn;
 
 // Watches
 watch(maximised, (): void => {
@@ -29,19 +38,38 @@ watch(maximised, (): void => {
 
 // Hooks
 onBeforeMount(async (): Promise<void> => {
-  await appWindow.onResized(async ({ payload }): Promise<void> => {
-    const curState: boolean = await appWindow.isMaximized();
-    if (curState !== maximised.value) {
-      maximised.value = await appWindow.isMaximized();
-    } else {
-      const scale: number = await appWindow.scaleFactor();
-      const logicalSize: LogicalSize = payload.toLogical(scale);
-      height.value = Math.trunc(logicalSize.height);
-      width.value = Math.trunc(logicalSize.width);
+  unlistenOnMoved = await appWindow.onMoved(
+    async ({ payload }): Promise<void> => {
+      if (!(await appWindow.isMaximized())) {
+        const scale: number = await appWindow.scaleFactor();
+        const logicalPosition: LogicalPosition = payload.toLogical(scale);
+        position.value = {
+          x: Math.trunc(logicalPosition.x),
+          y: Math.trunc(logicalPosition.y)
+        };
+      }
     }
-  });
+  );
+  unlistenOnResized = await appWindow.onResized(
+    async ({ payload }): Promise<void> => {
+      maximised.value = await appWindow.isMaximized();
+
+      if (!maximised.value) {
+        const scale: number = await appWindow.scaleFactor();
+        const logicalSize: LogicalSize = payload.toLogical(scale);
+        size.value = {
+          w: Math.trunc(logicalSize.width),
+          h: Math.trunc(logicalSize.height)
+        };
+      }
+    }
+  );
 
   await restore();
+});
+onBeforeUnmount((): void => {
+  unlistenOnMoved();
+  unlistenOnResized();
 });
 </script>
 
