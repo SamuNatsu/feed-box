@@ -6,17 +6,22 @@ import {
   appWindow
 } from '@tauri-apps/api/window';
 import { onBeforeMount, onBeforeUnmount, watch } from 'vue';
+import { Router, useRouter } from 'vue-router';
 
 // Stores
 import { useWindowStore } from '@/stores/window';
 
 // Icons
+import MdiHomeOutline from '~icons/mdi/home-outline';
+import MdiRssFeed from '~icons/mdi/rss-feed';
+import MdiSettingsOutline from '~icons/mdi/settings-outline';
 import MdiWindowClose from '~icons/mdi/window-close';
 import MdiWindowMaximize from '~icons/mdi/window-maximize';
 import MdiWindowMinimize from '~icons/mdi/window-minimize';
 import MdiWindowRestore from '~icons/mdi/window-restore';
 
 // Injects
+const router: Router = useRouter();
 const { position, size, maximised, restore } = useWindowStore();
 
 // Non-reactive
@@ -79,6 +84,15 @@ onBeforeUnmount((): void => {
     data-tauri-drag-region>
     <h1 class="leading-none px-2 py-2">Feed Box</h1>
     <div class="flex">
+      <button @click="router.push('/')" class="px-4 transition-colors hover:bg-blue-600">
+        <MdiHomeOutline />
+      </button>
+      <button @click="router.push('/feeds')" class="px-4 transition-colors hover:bg-blue-600">
+        <MdiRssFeed />
+      </button>
+      <button @click="router.push('/settings')" class="px-4 transition-colors hover:bg-blue-600">
+        <MdiSettingsOutline />
+      </button>
       <button
         @click="appWindow.minimize()"
         class="px-4 transition-colors hover:bg-blue-600">
