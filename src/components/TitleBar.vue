@@ -87,7 +87,7 @@ onBeforeUnmount((): void => {
       <button @click="router.push('/')" class="px-4 transition-colors hover:bg-blue-600">
         <MdiHomeOutline />
       </button>
-      <button @click="router.push('/feeds')" class="px-4 transition-colors hover:bg-blue-600">
+      <button @click="router.push('/subscriptions')" class="px-4 transition-colors hover:bg-blue-600">
         <MdiRssFeed />
       </button>
       <button @click="router.push('/settings')" class="px-4 transition-colors hover:bg-blue-600">

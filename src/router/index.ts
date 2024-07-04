@@ -2,9 +2,9 @@
 import { Router, createRouter, createWebHashHistory } from 'vue-router';
 
 // Views
-import Feeds from '@/views/Feeds.vue';
 import Index from '@/views/Index.vue';
 import Settings from '@/views/Settings.vue';
+import Subscriptions from '@/views/Subscriptions.vue';
 
 // Export router
 export const router: Router = createRouter({
@@ -15,8 +15,8 @@ export const router: Router = createRouter({
       component: Index
     },
     {
-      path: '/feeds',
-      component: Feeds
+      path: '/subscriptions',
+      component: Subscriptions
     },
     {
       path: '/settings',
