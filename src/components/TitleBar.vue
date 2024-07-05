@@ -13,6 +13,7 @@ import { useWindowStore } from '@/stores/window';
 
 // Icons
 import MdiHomeOutline from '~icons/mdi/home-outline';
+import MdiRefresh from '~icons/mdi/refresh';
 import MdiRssFeed from '~icons/mdi/rss-feed';
 import MdiSettingsOutline from '~icons/mdi/settings-outline';
 import MdiWindowClose from '~icons/mdi/window-close';
@@ -84,29 +85,50 @@ onBeforeUnmount((): void => {
     data-tauri-drag-region>
     <h1 class="leading-none px-2 py-2">Feed Box</h1>
     <div class="flex">
-      <button @click="router.push('/')" class="px-4 transition-colors hover:bg-blue-600">
+      <button
+        @click="router.push('/')"
+        class="px-4 transition-colors hover:bg-blue-600"
+        :title="$t('title_bar.home')">
         <MdiHomeOutline />
       </button>
-      <button @click="router.push('/subscriptions')" class="px-4 transition-colors hover:bg-blue-600">
+      <button
+        @click="router.push('/subscriptions')"
+        class="px-4 transition-colors hover:bg-blue-600"
+        :title="$t('title_bar.subscriptions')">
         <MdiRssFeed />
       </button>
-      <button @click="router.push('/settings')" class="px-4 transition-colors hover:bg-blue-600">
+      <button
+        @click="router.push('/settings')"
+        class="px-4 transition-colors hover:bg-blue-600"
+        :title="$t('title_bar.settings')">
         <MdiSettingsOutline />
       </button>
       <button
+        class="px-4 transition-colors hover:bg-blue-600"
+        :title="$t('title_bar.refresh_feeds')">
+        <MdiRefresh />
+      </button>
+      <button
         @click="appWindow.minimize()"
-        class="px-4 transition-colors hover:bg-blue-600">
+        class="px-4 transition-colors hover:bg-blue-600"
+        :title="$t('title_bar.minimize_window')">
         <MdiWindowMinimize />
       </button>
       <button
         @click="appWindow.toggleMaximize()"
-        class="px-4 transition-colors hover:bg-blue-600">
+        class="px-4 transition-colors hover:bg-blue-600"
+        :title="
+          $t(
+            maximised ? 'title_bar.restore_window' : 'title_bar.maximize_window'
+          )
+        ">
         <MdiWindowRestore v-if="maximised" />
         <MdiWindowMaximize v-else />
       </button>
       <button
         @click="appWindow.close()"
-        class="px-4 transition-colors hover:bg-red-500">
+        class="px-4 transition-colors hover:bg-red-500"
+        :title="$t('title_bar.quit')">
         <MdiWindowClose />
       </button>
     </div>

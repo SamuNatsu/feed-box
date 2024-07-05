@@ -17,7 +17,18 @@
       }
     },
     "default_name": "New Subscription",
+    "no_subscription": "No subscription",
     "title": "Subscriptions",
     "update_ago": "Updated {time} ago"
+  },
+  "title_bar": {
+    "home": "Home",
+    "minimize_window": "Minimize window",
+    "maximize_window": "Maximize window",
+    "refresh_feeds": "Refresh feeds",
+    "restore_window": "Restore window",
+    "subscriptions": "Subscriptions",
+    "settings": "Settings",
+    "quit": "Quit"
   }
 }

@@ -26,6 +26,11 @@ const { subscriptions, addNew } = useSubscriptionStore();
         :key="i.uuid"
         :subscription="i"
         :total="subscriptions.length" />
+      <h1
+        v-if="subscriptions.length === 0"
+        class="font-bold py-20 select-none text-3xl text-center text-neutral-300">
+        {{ $t('subscriptions.no_subscription') }}
+      </h1>
     </TransitionGroup>
   </div>
 </template>
